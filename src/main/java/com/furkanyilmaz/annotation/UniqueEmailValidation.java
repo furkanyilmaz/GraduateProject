@@ -7,20 +7,13 @@ import lombok.RequiredArgsConstructor;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor //repoyu kullanabil
 public class UniqueEmailValidation implements ConstraintValidator<UserRegisterUniqueEmail,String> {
-
-    //repo
+    //repoyu çağır
     private final IRegisterRepository repository;
-
-    @Override
-    public void initialize(UserRegisterUniqueEmail constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
-
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
-        RegisterEntity registerEntity = repository.findByEmail(email);
+        RegisterEntity registerEntity = repository.findByEmail(email); //e mail varsa değiştir.
         if (registerEntity!=null)
             return false;
         return true;

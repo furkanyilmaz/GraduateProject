@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IRegisterRepository extends JpaRepository<RegisterEntity, Long> {
-        //Jpa ya ek olarak kendi sorgularımızı burada yazıyoruz.
-
         RegisterEntity findByEmail(String email);
 }

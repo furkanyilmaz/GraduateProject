@@ -8,9 +8,11 @@ public class GlobalHandlingException {
 
     @ExceptionHandler({FurkanYilmazException.class})
     public String handlingNotFoundException(){
-        return "böyle bir daha yok.";
+        return "böyle bir data yok.";
 
     }
-   //@ExceptionHandler({NullPointerException.class})
-    //null değer olduğunda yakalar.
+    @ExceptionHandler({NullPointerException.class})
+    public String handlingNullPointerException(){  //null değer olduğunda yakalar.
+        return "null deger girildi...";
+    }
 }

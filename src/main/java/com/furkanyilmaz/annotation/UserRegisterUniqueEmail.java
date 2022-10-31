@@ -7,9 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD}) //@kullanacağımız yer.
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {UniqueEmailValidation.class})
+@Constraint(validatedBy = {UniqueEmailValidation.class}) //bir class'a sign etmemiz gerekiyor.
 public @interface UserRegisterUniqueEmail {
 
     String message() default "{blog.unique.email.validation.constraints.NotNull.message}";

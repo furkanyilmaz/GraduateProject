@@ -1,123 +1,102 @@
 package com.furkanyilmaz.ui.mvc;
 
-import com.furkanyilmaz.bean.ModelMapperBean;
-import com.furkanyilmaz.bean.PasswordEncoderBean;
 import com.furkanyilmaz.business.dto.RegisterDto;
-import com.furkanyilmaz.data.entity.RegisterEntity;
-import com.furkanyilmaz.data.repository.IRegisterRepository;
-import com.furkanyilmaz.exception.ResourceNotFoundException;
+import com.furkanyilmaz.business.iservices.IRegisterServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.UUID;
-
-@RequiredArgsConstructor//for injects
+@RequiredArgsConstructor //for injects-- private final zorunlu. constructure'ı oluşturmayı zorunlu kılarız. 27/28/29 satır
 @Log4j2
 
 @Controller
-public class RegisterController {
+//@RequestMapping("/controller")
+public class RegisterController implements IRegisterController {
+    //@Service
 
     //Inject
-    private final ModelMapperBean modelMapperBean;
-    private final IRegisterRepository repository;
-    private final PasswordEncoderBean passwordEncoderBean;
-
-    //CREATE
-    // http://localhost:8090/validation/register
-    @GetMapping("/validation/register")
-    public String validationRegister(Model model){
-        model.addAttribute("key_register", new RegisterDto());
-        return "register";
-    }
-
-    //CREATE
-    // http://localhost:8090/validation/register
-    @PostMapping("/validation/register")
-    public String validationPostRegister(@Valid @ModelAttribute("key_register") RegisterDto registerDto,
-            BindingResult bindingResult, Model model ){
-        if (bindingResult.hasErrors()){
-            log.error("HATA: "+ bindingResult);
-            return "register";
-        }
-        //eğer validasyonda bir hata yok ise;
-        model.addAttribute("register_success", "Üye kaydı başarılı"+ registerDto);
-        log.info("Başarılı "+registerDto);
-
-        //Database
-        //masking password
-        registerDto.setPassword( passwordEncoderBean.passwordEncoderMethod().encode(registerDto.getPassword()));
-        //model mapper
-        RegisterEntity registerEntity=modelMapperBean.modelMapperMethod().map(registerDto,RegisterEntity.class);
-        //RegisterEntity registerEntity=new RegisterEntity();
-        //registerEntity.setId(registerDto.getId());
-        //registerEntity.setName(registerDto.getName());
-        //registerEntity.setSurname(registerDto.getSurname());
-        //registerEntity.setEmail(registerDto.getEmail());
-        //registerEntity.setPassword(registerDto.getPassword());
-        try {
-            if(registerEntity!=null){
-                repository.save(registerEntity);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        //File
-        return "success";
-    }
+    private final IRegisterServices services;
 
     // SPEED DATA
     // http://localhost:8090/speedData
-    @GetMapping("/speedData")
+
+    @Override
+    @GetMapping("/speedData")    //(8 random data ekle)
     public String createSpeedData(Model model){
-        int counter=0;
-        for (int i = 1; i <=8 ; i++) {
-            UUID uuid=UUID.randomUUID();
-            RegisterEntity registerEntity=RegisterEntity.builder()
-                    .name("adı "+i)
-                    .surname("soyadı "+i)
-                    .password("root").email(uuid.toString().concat("@gmail.com")).build();
-            repository.save(registerEntity);
-            counter++;
-        }
-        model.addAttribute("key_dataset",counter+ " tane Register Entity oluşturuldu");
-        return "list";
+        services.createSpeedData(model);
+        return "register_list";
+    }
+
+    //CREATE
+    // http://localhost:8090/register/create
+    @Override
+    @GetMapping("/register/create") //Create için gerekli --> url kısımları aynı
+    public String validationGetRegister(Model model){
+        services.validationGetRegister(model);
+        return "register_create";
+    }
+
+    //CREATE
+    // http://localhost:8090/register/create
+    @Override
+    @PostMapping("/register/create") //Create için gerekli --> url kısımları aynı
+    public String validationPostRegister(RegisterDto registerDto, BindingResult bindingResult, Model model ){ // o alana veri göndermek için.
+        services.validationPostRegister(registerDto,bindingResult,model);
+        model.addAttribute("register_success", "Üye Kaydı Başarılı " + registerDto.getId());
+        return "redirect:/register/list";
     }
 
     //LIST
     // http://localhost:8090/register/list
-    @GetMapping("register/list")
-    public String registerList(Model model){
-        List<RegisterEntity> list= repository.findAll();
-        model.addAttribute("register_list",list);
-        list.forEach((temp)->{
-            System.out.println(temp);
-        });
-        return "list";
+    @Override
+    @GetMapping("/register/list")
+    public String registerList(Model model){ // model ; html tarafı için
+       services.registerList(model);
+        return "register_list";
     }
 
     //FIND
     // http://localhost:8090/register/find
     // http://localhost:8090/register/find/1
-    @GetMapping({"register/find","register/find/{id}"})
-    public String registerFindById(@PathVariable(name="id",required = false) Long id, Model model){
-        RegisterEntity registerEntity=repository.findById(id).orElseThrow(()->new ResourceNotFoundException(id+" nolu kayıt yoktur"));
-        model.addAttribute("register_find",registerEntity);
-        return "list";
+    @Override
+    @GetMapping({"/register/find/{id}"})
+    public String registerFindById(@PathVariable(name="id") Long id, Model model){
+        services.registerFindById(id,model);
+        return "register_detail_page";
     }
 
     //DELETE
-    // http://localhost:8090/register/find
-    // http://localhost:8090/register/find/1
-    @DeleteMapping({"register/delete","register/delete/{id}"})
-    public String registerDeleteById(@PathVariable(name="id",required = false) Long id,Model model){
-        RegisterEntity registerEntity=repository.findById(id).orElseThrow(()->new ResourceNotFoundException(id+" nolu kayıt yoktur"));
-        repository.delete(registerEntity);
-        return "list";
+    // http://localhost:8090/register/delete
+    // http://localhost:8090/register/delete/1
+    @Override
+    @GetMapping({"/register/delete","/register/delete/{id}"})
+    public String registerDeleteById(@PathVariable(name="id",required = false) Long id,Model model){ // model yapısında gösteririz bu datayı
+       services.registerDeleteById(id,model);
+        return "redirect:/register/list";
+    }
+
+    //UPDATE-GET
+    // http://localhost:8090/register/update
+    @Override
+    @GetMapping("/register/update/{id}") //Create için gerekli --> url kısımları aynı
+    public String updateGetRegister(@PathVariable(name = "id") Long id, Model model){
+       services.updateGetRegister(id,model);
+        return "register_update";
+    }
+
+    //UPDATE-POST
+    // http://localhost:8090/register
+    @Override
+    @PostMapping("/register/update/{id}")
+    public String updatePostRegister(@PathVariable(name = "id") Long id, RegisterDto registerDto, BindingResult bindingResult,Model model){
+        if (bindingResult.hasErrors()) {
+            log.error("HATA: " + bindingResult);
+            return "register_update";
+        }
+        services.updatePostRegister(id, registerDto);
+        model.addAttribute("rename",registerDto.getName()); //??
+        return "redirect:/register/list";
     }
 }
