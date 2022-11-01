@@ -15,14 +15,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class RegisterDto implements Serializable {
+public class DailyDto implements Serializable {
 
     private Long id;
 
     @NotEmpty(message = "{blog.username.validation.constraints.NotNull.message}")
-    private String name;
+    private String dailyHeader;
     @NotEmpty(message = "{blog.surname.validation.constraints.NotNull.message}")
-    private String surname;
+    private String dailyContent;
 
     @NotEmpty(message = "{blog.email.validation.constraints.NotNull.message}")
     @Email(message = "{blog.email.regex.validation.constraints.NotNull.message}")

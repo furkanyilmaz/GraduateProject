@@ -15,11 +15,13 @@ import java.io.Serializable;
 @Builder
 
 @Entity
-@Table(name = "register")
-public class RegisterEntity extends BaseEntity implements Serializable {
+@Table(name = "daily")
+public class DailyEntity extends BaseEntity implements Serializable {
     public static final long serialVersionUID=1L;
-    private String name;
-    private String surname;
+
+    private String dailyHeader;
+    private String dailyContent;
+    //@Column(name = "email",length = 125,nullable = false,unique = true)
     private String email;
     private String password;
 
