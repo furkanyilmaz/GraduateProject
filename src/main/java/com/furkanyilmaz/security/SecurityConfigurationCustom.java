@@ -19,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 
 //Security
-@EnableWebSecurity
-@Configuration
+@EnableWebSecurity //show webSecConfAdapter
+@Configuration// for beans
 public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
 
     // field
@@ -53,7 +53,7 @@ public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsServiceCustom).passwordEncoder(passwordEncoderBean.passwordEncoderMethod());
     }
 
-    //yetkilendirme yapılmışsa ilgili kullanıcının rolüne erişmesini sağlamaması için
+    //yetkilendirme yapılmışsa ilgili kullanıcının rolüne erişmesini sağlaması için
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //session kullanmadığımız durumlarda(session yerine JWT kullanacağım)
@@ -62,6 +62,7 @@ public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests().antMatchers("/api/authentication/**").permitAll().anyRequest().authenticated();
+                                        //sana verdiğim apinin haricinde kullanma.
     }
 
     //web security

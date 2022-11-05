@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+	//validation
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.5'
+
 	/* RETROFIT */
 	implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.9.0'
 	// converter-gson

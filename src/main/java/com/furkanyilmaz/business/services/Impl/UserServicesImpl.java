@@ -68,5 +68,8 @@ public class UserServicesImpl implements IUserServices {
     @Override
     public Optional<UserEntity> findUsername(String username) {
         return repository.findByUsername(username);
+//        UserEntity userEntity = repository.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException(username+ " kullanıcı bulunamadı."));
+//        UserDto EntityToDto = ?????????????????????api nasıl olacak????
+//        return null;
     }
 }
