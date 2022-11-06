@@ -36,7 +36,7 @@ public class AuthenticationApiImpl implements IAuthenticationApi {
     @Override
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
-        //kullanıcı adı uniq olmalı..
+        //kullanıcı adı unique olmalı..
         if (userServices.findUsername(userDto.getUsername()).isPresent()){
             //aynı kullanıcı varsa conflict oluştur
             return new ResponseEntity<>(HttpStatus.CONFLICT);

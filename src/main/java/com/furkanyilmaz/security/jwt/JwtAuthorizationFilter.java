@@ -11,20 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//Filter
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
+    //Constructor Injection öncelikle bunu SecurityConfig jwtAuthorizationFilterBeanMethod() adında bean ekledik
     @Autowired
-    private IJwtProvider iJwtProvider;
+    private  IJwtProvider iJwtProvider;
 
+    //filter daha önce çalışmamışsa
+    //requet ve responselara erişir bu filter
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //request
-        Authentication authentication = iJwtProvider.getAuthentication(request);
+        //gelen istediği
+        Authentication authentication=iJwtProvider.getAuthentication(request);
 
         //kimlik doğrulama
-        if (iJwtProvider.isValidateToken(request) && authentication != null) {
+        if(authentication!=null && iJwtProvider.isValidateToken(request)){
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(request, response);
+
+        //filtereleme sonrasında geri dönüş sağladık
+        filterChain.doFilter(request,response);
     }
 }

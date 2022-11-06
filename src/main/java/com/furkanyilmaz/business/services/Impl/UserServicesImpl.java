@@ -9,6 +9,8 @@ import com.furkanyilmaz.data.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class UserServicesImpl implements IUserServices {
 
     //CREATE
     @Override
+    @PostMapping("/save/product")
     public UserDto createUser(UserDto userDto) {
         if(userDto!=null){
             userDto.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(userDto.getPassword()));
@@ -53,6 +56,7 @@ public class UserServicesImpl implements IUserServices {
 
     //LIST
     @Override
+    @GetMapping("/list/product")
     public List<UserDto> getAllUser() {
         Iterable<UserEntity>  userEntityList= repository.findAll();
         //dto List
@@ -68,8 +72,5 @@ public class UserServicesImpl implements IUserServices {
     @Override
     public Optional<UserEntity> findUsername(String username) {
         return repository.findByUsername(username);
-//        UserEntity userEntity = repository.findByUsername(username).orElseThrow(()-> new ResourceNotFoundException(username+ " kullanıcı bulunamadı."));
-//        UserDto EntityToDto = ?????????????????????api nasıl olacak????
-//        return null;
     }
 }
