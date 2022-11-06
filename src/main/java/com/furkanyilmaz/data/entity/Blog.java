@@ -18,23 +18,21 @@ import java.util.Date;
 
 @Entity
 @Table(name = "blog")
-public class Blog implements Serializable {
+public class Blog extends BaseEntity implements Serializable {
     public static final long serialVersionUID=1L;
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @NotEmpty(message = "{blog.header.validation.constraints.NotNull.message}")
     @Column(name = "blogHeader", length = 40, nullable = false)
     private String blogHeader;
 
-    @NotEmpty(message = "{blog.content.validation.constraints.NotNull.message}")
     @Column(name = "blogContent", length = 200, nullable = false)
     private String blogContent;
 
     private String blogImage;
 
-    @Column(name = "blogCreatedDate")
-    private Date blogCreatedDate = new Date(System.currentTimeMillis());
+//    @Column(name = "blogCreatedDate")
+//    private Date createdDate = new Date(System.currentTimeMillis());
 }

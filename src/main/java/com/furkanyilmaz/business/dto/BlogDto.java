@@ -15,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Log4j2
+
 public class BlogDto implements Serializable {
 
     private Long id;
@@ -27,5 +28,5 @@ public class BlogDto implements Serializable {
 
     private String blogImage;
 
-    private Date blogCreatedDate;
+    private Date createdDate;
 }
