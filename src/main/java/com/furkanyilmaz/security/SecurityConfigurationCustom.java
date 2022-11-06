@@ -1,6 +1,7 @@
 package com.furkanyilmaz.security;
 
 import com.furkanyilmaz.bean.PasswordEncoderBean;
+import com.furkanyilmaz.security.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,7 +28,7 @@ public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
     // field
     private final PasswordEncoderBean passwordEncoderBean;
     private final UserDetailsServiceCustom userDetailsServiceCustom;
-
+    ///////////////////////////////////////////////////////////////////////////////////////////
     // Bean
     @Bean
     public WebMvcConfigurer webMvcConfigurer(){
@@ -46,6 +48,12 @@ public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    @Bean
+    public JwtAuthorizationFilter jwtAuthorizationFilterBeanMethod(){
+        return new JwtAuthorizationFilter();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
     //Override ++++++++++++++++++++++++
     //Kimlik doğrulama
     @Override
@@ -61,8 +69,10 @@ public class SecurityConfigurationCustom extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        //apiye izin vermek
         http.authorizeRequests().antMatchers("/api/authentication/**").permitAll().anyRequest().authenticated();
                                         //sana verdiğim apinin haricinde kullanma.
+        http.addFilterBefore(jwtAuthorizationFilterBeanMethod(), UsernamePasswordAuthenticationFilter.class);
     }
 
     //web security
