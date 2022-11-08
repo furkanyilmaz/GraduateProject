@@ -2,15 +2,16 @@ package com.furkanyilmaz.ui.api;
 
 import com.furkanyilmaz.business.dto.DailyDto;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
+
 import java.util.Map;
 
 public interface IDailyApi {
     //CREATE
-    ResponseEntity<?> createDaily(DailyDto registerDto);
+    ResponseEntity<?> createDaily(DailyDto dailyDto);
 
+    //http://localhost:8090/api/reg/v1/daily/list
     //LIST
-    ResponseEntity<List<DailyDto>>  listDaily();
+    ResponseEntity<?> listDaily();
 
     //FIND
     ResponseEntity<DailyDto> findDaily(Long id);

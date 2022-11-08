@@ -27,36 +27,36 @@ import java.util.Map;
 public class DailyServicesImpl implements IDailyServices {
 
     //injection
-    private final IDailyRepository repository;
+    private final IDailyRepository repository; // db işlemlerimizi göreceğimiz yer.
     private final ModelMapperBean modelMapperBean;
     private final PasswordEncoderBean passwordEncoderBean;
 
     // Model Mapper
     @Override
-    public DailyDto entityToDto(DailyEntity registerEntity) {
-        return modelMapperBean.modelMapperMethod().map(registerEntity, DailyDto.class);
+    public DailyDto entityToDto(DailyEntity dailyEntity) {
+        return modelMapperBean.modelMapperMethod().map(dailyEntity, DailyDto.class);
     }
 
     @Override
-    public DailyEntity dtoToEntity(DailyDto registerDto) {
-        return modelMapperBean.modelMapperMethod().map(registerDto, DailyEntity.class);
+    public DailyEntity dtoToEntity(DailyDto dailyDto) {
+        return modelMapperBean.modelMapperMethod().map(dailyDto, DailyEntity.class);
     }
 
     //CREATE
     @Override
-    public DailyDto createDaily(DailyDto registerDto) {
-        registerDto.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(registerDto.getPassword()));
-        DailyEntity registerEntity = dtoToEntity(registerDto);
+    public DailyDto createDaily(DailyDto dailyDto) {
+        dailyDto.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(dailyDto.getPassword()));
+        DailyEntity registerEntity = dtoToEntity(dailyDto);
         repository.save(registerEntity);
-        return registerDto;
+        return dailyDto;
     }
 
     //LIST
     @Override
-    public List<DailyDto> listDaily() {
-        List<DailyEntity> registerEntityList = repository.findAll();
+    public List<DailyDto> listDaily() { //!!!!!!!
+        List<DailyEntity> dailyEntityList = repository.findAll();//hepsini listeye at
         List<DailyDto> dtoList = new ArrayList<>();
-        for (DailyEntity temp : registerEntityList) {
+        for (DailyEntity temp : dailyEntityList) {
             DailyDto entityToDto = entityToDto(temp);
             dtoList.add(entityToDto);
         }
@@ -66,16 +66,16 @@ public class DailyServicesImpl implements IDailyServices {
     //FIND
     @Override
     public DailyDto findDaily(Long id) {
-        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        DailyDto entityToDto = entityToDto(registerEntity);
+        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        DailyDto entityToDto = entityToDto(dailyEntity);
         return entityToDto;
     }
 
     //DELETE
     @Override
     public Map<String, Boolean> deleteDaily(Long id) {
-        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        repository.delete(registerEntity);
+        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        repository.delete(dailyEntity);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
@@ -85,13 +85,13 @@ public class DailyServicesImpl implements IDailyServices {
     //UPDATE
     @Override
     public DailyDto updateDaily(Long id, DailyDto registerDto) {
-        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        if (registerEntity != null) {
-            registerEntity.setDailyHeader(registerEntity.getDailyHeader());
-            registerEntity.setDailyContent(registerEntity.getDailyContent());
-            registerEntity.setEmail(registerEntity.getEmail());
-            registerEntity.setPassword(registerEntity.getPassword());
-            repository.save(registerEntity);
+        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        if (dailyEntity != null) {
+            dailyEntity.setDailyHeader(dailyEntity.getDailyHeader());
+            dailyEntity.setDailyContent(dailyEntity.getDailyContent());
+            dailyEntity.setEmail(dailyEntity.getEmail());
+            dailyEntity.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(dailyEntity.getPassword()));
+            repository.save(dailyEntity);
         }
         return registerDto;
     }

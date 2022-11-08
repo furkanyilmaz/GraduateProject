@@ -42,26 +42,26 @@
 <h1> FORM</h1>
 <div class="container">
     <div class="row">
-        <form class="guncel" th:action="@{/register/update/{id}(id=${key_update.id})}" th:object="${key_update}"  th:method="post">
+        <form th:action="@{/daily/update/{id}(id=${key_update.id})}" th:object="${key_update}"  th:method="post">
             <!--SONRA-->
             <div class="col-md col-sm">
                 <div class="form-group">
-                    <input type="text" class="form-control mb-4 mt-5"  placeholder="Adınız" autofocus  name="name"  th:field="*{name}" />
-                    <span class="text-danger"  th:if="${#fields.hasErrors('name')}" th:errors="*{name}" />
+                    <input type="text" class="form-control mb-4 mt-5"  placeholder="Günlük başlık" autofocus  name="dailyHeader"  th:field="*{dailyHeader}" />
+                    <span class="text-danger"  th:if="${#fields.hasErrors('dailyHeader')}" th:errors="*{dailyHeader}" />
                 </div>
             </div>
 
             <div class="col-md col-sm">
                 <div class="form-group">
-                    <input type="text" class="form-control mb-4 mt-5"  placeholder="Soyadınız"   name="surname"  th:field="*{surname}" />
-                    <span class="text-danger"  th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" />
+                    <textarea  class="form-control mb-4 mt-5"  placeholder="Günlük içerik"   name="dailyContent"  th:field="*{dailyContent}" />
+                    <span class="text-danger"  th:if="${#fields.hasErrors('dailyContent')}" th:errors="*{dailyContent}" />
                 </div>
             </div>
 
             <div class="col-md col-sm">
                 <div class="form-group">
                     <input type="text" class="form-control mb-4" placeholder="Emailiniz" name="email" th:field="*{email}" />
-                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+<!--                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>-->
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
             </div>
             <div class="col-md col-sm">
                 <div class="form-group">
-                    <a th:onclick="clear()" class="btn btn-danger">Temizle</a>
+                    <a th:href="@{/validation/form}" class="btn btn-danger">Temizle</a>
                     <input type="submit" class="btn btn-primary" value="Güncelle"/>
                 </div>
             </div>
@@ -81,16 +81,10 @@
     </div>
 </div>
 
+<a th:href="@{/daily/list}" class="btn btn-primary">Günlük List</a>
+
 <!-- ends codes -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-<script th:inline="javascript">
-
-    function clear() {
-        //clears the form and resets it to the default
-        document.getElementById("form").reset();
-    }
-
-</script>
 </body>
 </html>

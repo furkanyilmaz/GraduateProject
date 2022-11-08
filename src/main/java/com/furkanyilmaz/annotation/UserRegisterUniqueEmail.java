@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {UniqueEmailValidation.class}) //bir class'a sign etmemiz gerekiyor.
 public @interface UserRegisterUniqueEmail {
 
-    String message() default "{blog.unique.email.validation.constraints.NotNull.message}";
+    String message() default "{daily.unique.email.validation.constraints.NotNull.message}";
 
     Class<?>[] groups() default { };
 

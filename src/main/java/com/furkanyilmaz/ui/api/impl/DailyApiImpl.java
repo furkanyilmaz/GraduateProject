@@ -10,26 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 //lombok
 @Log4j2
 @RequiredArgsConstructor
 
-@RestController
+//@Controller // ui için
+@RestController//JSON veya XML
 @RequestMapping("/api/reg/v1")
 @CrossOrigin
 public class DailyApiImpl implements IDailyApi {
-
     //injection services
     private final IDailyServices services;
 
     //http://localhost:8090/api/reg/v1/daily/create
     //CREATE
     @Override
-    @PostMapping("daily/create")
-    public ResponseEntity<?>  createDaily(@Valid @RequestBody DailyDto dailyDto) {
+    @PostMapping("/daily/create")
+    public ResponseEntity<?>  createDaily(@Valid @RequestBody DailyDto dailyDto) { //api old için responsEentity <?>
         services.createDaily(dailyDto);
         return ResponseEntity.ok(dailyDto);
     }
@@ -37,8 +36,8 @@ public class DailyApiImpl implements IDailyApi {
     //http://localhost:8090/api/reg/v1/daily/list
     //LIST
     @Override
-    @GetMapping("daily/list")
-    public ResponseEntity<List<DailyDto>>  listDaily() {
+    @GetMapping("/daily/list")
+    public ResponseEntity<?> listDaily() {
         return ResponseEntity.ok(services.listDaily());
     }
 
@@ -51,7 +50,6 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(services.findDaily(id));
     }
 
-
     //http://localhost:8090/api/reg/v1/daily/delete/1
     //DELETE
     @Override
@@ -63,7 +61,6 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok( response);
     }
 
-
     //http://localhost:8090/api/reg/v1/daily/update/1
     //UPDATE
     @Override
@@ -73,3 +70,4 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(dailyDto);
     }
 }
+

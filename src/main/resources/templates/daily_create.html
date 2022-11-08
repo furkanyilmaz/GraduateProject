@@ -37,28 +37,30 @@
 
 <body class="container">
 
-<!--private Long id;
+<!--
+private Long id;
 private String name;
 private String surname;
 private String email;
-private String password;-->
+private String password;
+-->
 <!-- start codes -->
-<h1 class="text-primary">Register Create</h1>
+<h1 class="text-primary">Günlük kaydet Create</h1>
 <div class="container">
     <div class="row">
         <h1 class="text-uppercase mt-5 mb-3">Üye Kayıt</h1>
-        <form th:action="@{/register/create}" th:object="${key_register}" method="post">
+        <form th:action="@{/daily/create}" th:object="${key_daily}" method="post">
             <div class="col-md col-sm">
                 <div class="form-group mb-4">
-                    <input type="text" class="form-control" placeholder="Adınız" id="name" name="name" autofocus="true" th:field="*{name}"/>
-                    <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    <input type="text" class="form-control" placeholder="Günlük Başlık" id="dailyHeader" name="dailyHeader" autofocus="true" th:field="*{dailyHeader}"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('dailyHeader')}" th:errors="*{dailyHeader}"></span>
                 </div>
             </div>
 
             <div class="col-md col-sm">
                 <div class="form-group mb-4">
-                    <input type="text" class="form-control" placeholder="Soyadınız" id="surname" name="surname"  th:field="*{surname}"/>
-                    <span class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+                    <input type="text" class="form-control" placeholder="Günlük içerik" id="dailyContent" name="dailyContent"  th:field="*{dailyContent}"/>
+                    <span class="text-danger" th:if="${#fields.hasErrors('dailyContent')}" th:errors="*{dailyContent}"></span>
                 </div>
             </div>
 
@@ -85,6 +87,8 @@ private String password;-->
         </form>
     </div>
 </div>
+
+<a th:href="@{/daily/list}" class="btn btn-primary">Günlük List</a>
 
 <!-- ends codes -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
