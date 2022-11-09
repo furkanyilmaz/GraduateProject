@@ -53,10 +53,10 @@ public class DailyServicesImpl implements IDailyServices {
 
     //LIST
     @Override
-    public List<DailyDto> listDaily() { //!!!!!!!
-        List<DailyEntity> dailyEntityList = repository.findAll();//hepsini listeye at
+    public List<DailyDto> listDaily() {
+        List<DailyEntity> registerEntityList = repository.findAll();
         List<DailyDto> dtoList = new ArrayList<>();
-        for (DailyEntity temp : dailyEntityList) {
+        for (DailyEntity temp : registerEntityList) {
             DailyDto entityToDto = entityToDto(temp);
             dtoList.add(entityToDto);
         }
@@ -66,16 +66,16 @@ public class DailyServicesImpl implements IDailyServices {
     //FIND
     @Override
     public DailyDto findDaily(Long id) {
-        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        DailyDto entityToDto = entityToDto(dailyEntity);
+        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        DailyDto entityToDto = entityToDto(registerEntity);
         return entityToDto;
     }
 
     //DELETE
     @Override
     public Map<String, Boolean> deleteDaily(Long id) {
-        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        repository.delete(dailyEntity);
+        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        repository.delete(registerEntity);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
@@ -84,15 +84,15 @@ public class DailyServicesImpl implements IDailyServices {
 
     //UPDATE
     @Override
-    public DailyDto updateDaily(Long id, DailyDto registerDto) {
-        DailyEntity dailyEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
-        if (dailyEntity != null) {
-            dailyEntity.setDailyHeader(dailyEntity.getDailyHeader());
-            dailyEntity.setDailyContent(dailyEntity.getDailyContent());
-            dailyEntity.setEmail(dailyEntity.getEmail());
-            dailyEntity.setPassword(passwordEncoderBean.passwordEncoderMethod().encode(dailyEntity.getPassword()));
-            repository.save(dailyEntity);
+    public DailyDto updateDaily(Long id, DailyDto dailyDto) {
+        DailyEntity registerEntity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id + " id bulunamadı"));
+        if (registerEntity != null) {
+            registerEntity.setDailyHeader(dailyDto.getDailyHeader());
+            registerEntity.setDailyContent(dailyDto.getDailyContent());
+            registerEntity.setEmail(dailyDto.getEmail());
+            registerEntity.setPassword(dailyDto.getPassword());
+            repository.save(registerEntity);
         }
-        return registerDto;
+        return dailyDto;
     }
 }
