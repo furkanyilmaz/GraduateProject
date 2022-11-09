@@ -44,6 +44,7 @@ Extensisons
 - jquery
 - Bootstrap
 - react
+- thymeleaf
 
 
 ---
@@ -86,6 +87,8 @@ Spring Boot Actuator
 ---
 
 ## Docker Deployment
+./mvnw clean package
+./mwnw clean packaage -DskipsTests
 
 1.ADIM
 npx create-react-app frontend

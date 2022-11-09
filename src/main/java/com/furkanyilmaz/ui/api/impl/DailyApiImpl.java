@@ -18,13 +18,13 @@ import java.util.Map;
 
 //@Controller // ui için
 @RestController//JSON veya XML
-@RequestMapping("/api/reg/v1")
+@RequestMapping("/api/v1")
 @CrossOrigin
 public class DailyApiImpl implements IDailyApi {
     //injection services
     private final IDailyServices services;
 
-    //http://localhost:8090/api/reg/v1/daily/create
+    //http://localhost:8090/api/v1/daily/create
     //CREATE
     @Override
     @PostMapping("/daily/create")
@@ -33,7 +33,7 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(dailyDto);
     }
 
-    //http://localhost:8090/api/reg/v1/daily/list
+    //http://localhost:8090/api/v1/daily/list
     //LIST
     @Override
     @GetMapping("/daily/list")
@@ -42,7 +42,7 @@ public class DailyApiImpl implements IDailyApi {
     }
 
 
-    //http://localhost:8090/api/reg/v1/daily/find/1
+    //http://localhost:8090/api/v1/daily/find/1
     //FIND
     @Override
     @GetMapping("daily/find/{id}")
@@ -50,7 +50,7 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(services.findDaily(id));
     }
 
-    //http://localhost:8090/api/reg/v1/daily/delete/1
+    //http://localhost:8090/api/v1/daily/delete/1
     //DELETE
     @Override
     @DeleteMapping("daily/delete/{id}")
@@ -61,7 +61,7 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok( response);
     }
 
-    //http://localhost:8090/api/reg/v1/daily/update/1
+    //http://localhost:8090/api/v1/daily/update/1
     //UPDATE
     @Override
     @PutMapping("daily/update/{id}")

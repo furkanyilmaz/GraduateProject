@@ -24,7 +24,7 @@ import java.util.UUID;
 //Controller
 @Controller
 //@RequestMapping("/controller")
-public class DailyController {
+public class DailyController implements IDailyController{
     //thymeleaf CRUD
     //@Service
     //postman

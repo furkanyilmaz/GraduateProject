@@ -11,40 +11,44 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+
 //lombok
 @Getter @Setter
-@MappedSuperclass //baseClass
+//super class
+@MappedSuperclass
+
 //auditing
 @EntityListeners(AuditingEntityListener.class)
 abstract public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "system_created_date")
+    @Column(name ="system_created_date")
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date systemCreatedDate;
 
+
     //auditing
     //kim ekledi
-    @Column(name = "created_by")
+    @Column(name="created_by")
     @CreatedBy
     private String createdBy;
 
     //kim ne zaman ekledi
-    @Column(name = "created_date")
+    @Column(name="created_date")
     @CreatedDate
     private Date createdDate;
 
     //kim güncelledi
-    @Column(name = "Last_Modified_By")
+    @Column(name="last_modified_by")
     @LastModifiedBy
-    private String LastModifiedBy;
+    private String lastModifiedBy;
 
     //kim ne zaman güncelledi
-    @Column(name = "LastModifiedDate")
+    @Column(name="last_modified_date")
     @LastModifiedDate
-    private Date LastModifiedDate;
+    private Date lastModifiedDate;
 }
