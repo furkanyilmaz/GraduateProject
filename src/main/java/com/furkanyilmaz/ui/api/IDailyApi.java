@@ -20,5 +20,5 @@ public interface IDailyApi {
     ApiResult deleteDaily(Long id);
 
     //UPDATE
-    ResponseEntity<?> updateDaily(Long id,JsonElement jsonElement);
+    ApiResult updateDaily(Long id,JsonElement jsonElement);
 }

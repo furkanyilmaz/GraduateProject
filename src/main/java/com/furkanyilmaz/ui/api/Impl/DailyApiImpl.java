@@ -21,8 +21,8 @@ public class DailyApiImpl implements IDailyApi {
     private final IDailyService dailyService;
     private static final String PATH = "gateway/daily";
 
-    //http://localhost:5555/gateway/daily  ==> POST
     //SAVE
+    //http://localhost:5555/gateway/daily  ==> POST
     @Override
     @PostMapping
     public ApiResult saveDaily(@RequestBody JsonElement jsonElement) {
@@ -30,6 +30,7 @@ public class DailyApiImpl implements IDailyApi {
         return new ApiResult(200, "Kayıt olundu", PATH);
     }
 
+    //LIST
     //http://localhost:5555/gateway/daily  ==> GET
     @Override
     @GetMapping
@@ -38,6 +39,7 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(dailyService.dailyList());
     }
 
+    //FIND
     //http://localhost:5555/gateway/daily/1
     @Override
     @GetMapping("/{id}")
@@ -45,17 +47,21 @@ public class DailyApiImpl implements IDailyApi {
         return ResponseEntity.ok(dailyService.dailyFind(id));
     }
 
-    //http://localhost:5555/gateway/daily/1  ==> DELETE
-    @DeleteMapping("/{id}")
+    //DELETE
+    //http://localhost:5555/gateway/daily/1
     @Override
-    public ApiResult deleteDaily(@PathVariable(name="id") Long id) {
-        return   new ApiResult(200, id+" nolu kayıt Silindi", PATH);
+    @DeleteMapping("/{id}")
+    public ApiResult deleteDaily(@PathVariable(name = "id") Long id) {
+        dailyService.dailyDelete(id);
+        return new ApiResult(200, "Silindi", PATH);
     }
 
-    //http://localhost:5555/gateway/daily/update/1
+    //UPDATE
+    //http://localhost:5555/gateway/daily/1
     @Override
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateDaily(@PathVariable(name="id") Long id, @RequestBody JsonElement jsonElement) {
-        return ResponseEntity.ok( dailyService.dailyUpdate(id,jsonElement));
+    @PutMapping("/{id}")
+    public ApiResult updateDaily(@PathVariable(name="id")Long id, @RequestBody JsonElement jsonElement) {
+        dailyService.dailyUpdate(id,jsonElement);
+        return new ApiResult(200, "güncellendi", PATH);
     }
 }

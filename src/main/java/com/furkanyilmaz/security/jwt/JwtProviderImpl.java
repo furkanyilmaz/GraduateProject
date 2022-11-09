@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletRequest;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;

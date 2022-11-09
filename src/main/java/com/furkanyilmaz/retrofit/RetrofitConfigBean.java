@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.concurrent.TimeUnit;
 
-//Configuration: spring' yeni bir nesne kardeş var bilgin olsun
+//Configuration: spring' yeni bir nesne var bilgin olsun
 @Configuration
 public class RetrofitConfigBean {
 

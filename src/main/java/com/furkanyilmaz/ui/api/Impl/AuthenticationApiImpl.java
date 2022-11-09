@@ -16,31 +16,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/api/authentication/")
+@RequestMapping("/api/authentication")
 public class AuthenticationApiImpl implements IAuthenticationApi {
 
-    //injection
+    //Injection
     private final IAuthenticationService authenticationService;
     private final IUserServices userServices;
 
+
+    //REGISTER
+    // http://localhost:5555/api/authentication/register
+    @Override
+    @PostMapping("register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        // kullanıcı adımız unique olmalıdır.
+        if (userServices.findUsername(userDto.getUsername()).isPresent()) {
+            //aynı kullanıcı varsa conflict oluşturalım
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(userServices.createUser(userDto), HttpStatus.CREATED);
+    }
+
     //LOGIN
-    //http://localhost:5555/api/authentication/login
+    // http://localhost:5555/api/authentication/login
     @Override
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(authenticationService.loginReturnJwt(userDto), HttpStatus.OK);
-    }
-
-    //REGISTER
-    //http://localhost:5555/api/authentication/register
-    @Override
-    @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
-        //kullanıcı adı unique olmalı..
-        if (userServices.findUsername(userDto.getUsername()).isPresent()){
-            //aynı kullanıcı varsa conflict oluştur
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>(userServices.createUser(userDto), HttpStatus.CREATED);
     }
 }

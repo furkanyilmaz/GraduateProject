@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,7 +33,7 @@ public class UserEntity implements Serializable {
     private String password;
 
     @Column(name = "created_date")
-    //@CreationTimestamp
-    //@Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate=new Date(System.currentTimeMillis());
 }

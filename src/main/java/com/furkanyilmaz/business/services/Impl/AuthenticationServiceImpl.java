@@ -9,25 +9,24 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-//@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements IAuthenticationService {
 
-    //İnjection
+    //injection
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private  AuthenticationManager authenticationManager;
     @Autowired
-    private IJwtProvider iJwtProvider;
+    private  IJwtProvider iJwtProvider;
 
     @Override
-    public String loginReturnJwt(UserDto userDto) {
-        //Authentication
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
+    public String loginReturnJwt(UserDto userDto){
+        //Authentication ==> UserDto username ve password vermek
+        Authentication authentication=authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userDto.getUsername(),userDto.getPassword()));
 
-        //UserPrincipal
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        // UserPrincipal
+        UserPrincipal  userPrincipal= (UserPrincipal) authentication.getPrincipal();
 
-        //Bu user kişisiyle git token oluştur.
+        //IJwtProvider
         return iJwtProvider.generateToken(userPrincipal);
     }
 }
