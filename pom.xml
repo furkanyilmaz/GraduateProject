@@ -13,10 +13,10 @@
 
     <!--for project informartion-->
     <groupId>com.furkanyilmaz</groupId>
-    <artifactId>GraduateProject</artifactId>
+    <artifactId>GraduateProjectDaily</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>GraduateProject</name>
-    <description>GraduateProject</description>
+    <name>GraduateProjectDaily</name>
+    <description>GraduateProjectDaily</description>
 
 
     <!--properties-->
