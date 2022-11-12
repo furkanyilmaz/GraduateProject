@@ -27,7 +27,7 @@ public class DailyApiImpl implements IDailyApi {
     @PostMapping
     public ApiResult saveDaily(@RequestBody JsonElement jsonElement) {
         dailyService.dailySave(jsonElement);
-        return new ApiResult(200, "Kayıt olundu", PATH);
+        return new ApiResult(200, "Gunluk kaydi olusturuldu", PATH);
     }
 
     //LIST
@@ -53,7 +53,7 @@ public class DailyApiImpl implements IDailyApi {
     @DeleteMapping("/{id}")
     public ApiResult deleteDaily(@PathVariable(name = "id") Long id) {
         dailyService.dailyDelete(id);
-        return new ApiResult(200, "Silindi", PATH);
+        return new ApiResult(200, "Gunluk silindi", PATH);
     }
 
     //UPDATE
@@ -62,6 +62,6 @@ public class DailyApiImpl implements IDailyApi {
     @PutMapping("/{id}")
     public ApiResult updateDaily(@PathVariable(name="id")Long id, @RequestBody JsonElement jsonElement) {
         dailyService.dailyUpdate(id,jsonElement);
-        return new ApiResult(200, "güncellendi", PATH);
+        return new ApiResult(200, "gunluk guncellendi", PATH);
     }
 }
