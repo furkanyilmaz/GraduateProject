@@ -40,8 +40,8 @@ public class BlogController implements IBlogController {
         for (int i = 1; i <= 5; i++) {
             UUID uuid = UUID.randomUUID();
             Blog blog = Blog.builder()
-                    .blogHeader(" SpringBOOT  " + i + ". GUN")
-                    .blogContent("bugün spring boot çalıştım, toplam kazancım " + i + "gün. HARİKA!!")
+                    .blogHeader(" SpringBOOT  " + i + ". BLOG")
+                    .blogContent("spring boot çalıştım, toplam kazancım " + i + "BLOG. GREAT!!")
                     .blogImage("Image " + i)
 //                    .blogCreatedDate(new Date(System.currentTimeMillis()))
                     .build();
