@@ -43,8 +43,8 @@ public class BlogServiceImpl implements IBlogService {
     //CREATE
     @Override
     public BlogDto createBlog(BlogDto blogDto) {
-        Blog blogEntity = dtoToEntity(blogDto);
-        repository.save(blogEntity);
+        Blog registerBlogEntity = dtoToEntity(blogDto);
+        repository.save(registerBlogEntity);
         return blogDto;
     }
 
@@ -60,6 +60,7 @@ public class BlogServiceImpl implements IBlogService {
         return blogDtoList;
     }
 
+    //FIND
     @Override
     public BlogDto findBlog(Long id) {
         Blog blogEntity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id + "id'si bulunamadı."));

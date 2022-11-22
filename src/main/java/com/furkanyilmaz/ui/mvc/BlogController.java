@@ -39,13 +39,13 @@ public class BlogController implements IBlogController {
         int counter = 0;
         for (int i = 1; i <= 5; i++) {
             UUID uuid = UUID.randomUUID();
-            Blog blog = Blog.builder()
+            Blog blogEntity = Blog.builder()
                     .blogHeader(" SpringBOOT  " + i + ". BLOG")
                     .blogContent("spring boot çalıştım, toplam kazancım " + i + "BLOG. GREAT!!")
                     .blogImage("Image " + i)
 //                    .blogCreatedDate(new Date(System.currentTimeMillis()))
                     .build();
-            repository.save(blog);
+            repository.save(blogEntity);
             //model mapper kullanmadan direkt entity'i build ettik.(dto değil)
             counter++;
         }
