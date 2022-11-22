@@ -9,7 +9,6 @@ public interface IDailyApi {
     //CREATE
     ResponseEntity<?> createDaily(DailyDto dailyDto);
 
-    //http://localhost:8090/api/reg/v1/daily/list
     //LIST
     ResponseEntity<?> listDaily();
 
