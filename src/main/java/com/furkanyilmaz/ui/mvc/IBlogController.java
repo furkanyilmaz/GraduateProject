@@ -26,6 +26,6 @@ public interface IBlogController {
 
     public String updateGetBlog(Long id, Model model);
 
-    public String updatePostBlog(Long id,BlogDto dailyDto, BindingResult bindingResult, Model model);
+    public String updatePostBlog(Long id,BlogDto blogDto, BindingResult bindingResult, Model model);
 
 }

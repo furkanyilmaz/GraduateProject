@@ -146,12 +146,12 @@ public class BlogController implements IBlogController {
     //UPDATE
     // http://localhost:1111/blog/update/
     @PostMapping("/blog/update/{id}")
-    public String updatePostBlog(@PathVariable(name = "id") Long id, @Valid @ModelAttribute("key_update") BlogDto dailyDto, BindingResult bindingResult, Model model) {
+    public String updatePostBlog(@PathVariable(name = "id") Long id, @Valid @ModelAttribute("key_update") BlogDto blogDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             log.error("HATA: " + bindingResult);
-            return "daily_update";
+            return "blog_update";
         }
-        Blog blogEntity = modelMapperBean.modelMapperMethod().map(dailyDto, Blog.class);
+        Blog blogEntity = modelMapperBean.modelMapperMethod().map(blogDto, Blog.class);
         try {
             if (blogEntity != null) {
                 repository.save(blogEntity);
