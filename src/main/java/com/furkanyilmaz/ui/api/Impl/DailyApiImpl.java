@@ -5,6 +5,7 @@ import com.furkanyilmaz.business.services.IDailyService;
 import com.furkanyilmaz.error.ApiResult;
 import com.furkanyilmaz.ui.api.IDailyApi;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,9 @@ import java.util.List;
 public class DailyApiImpl implements IDailyApi {
 
     //Injection
+    @Autowired
     private final IDailyService dailyService;
+    @Autowired
     private static final String PATH = "gateway/daily";
 
     //SAVE
