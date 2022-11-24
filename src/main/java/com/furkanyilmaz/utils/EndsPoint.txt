@@ -1,0 +1,34 @@
+//BLOG
+//Blog-Create
+POST /api/v1/blog/create
+Host: localhost:1111
+
+{
+    "blogHeader" : "blog1",
+    "blogContent": "blog1",
+    "email" :"blog1@gmail.com",
+    "password": "blog123@"
+}
+
+//Blog-List
+GET /api/v1/blog/list
+Host: localhost:1111
+
+//Blog-Find
+GET /api/v1/blog/find
+Host: localhost:1111
+
+//Blog-Update
+PUT /api/v1/blog/update/1
+Host: localhost:1111
+
+{
+    "blogHeader" : "blog2",
+    "blogContent": "blog2",
+    "email" :"blog2@gmail.com",
+    "password": "blog123@"
+}
+
+//Blog-Delete
+DELETE /gateway/blog/1
+Host: localhost:1111
