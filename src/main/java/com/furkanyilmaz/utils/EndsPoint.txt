@@ -1,0 +1,35 @@
+//DAILY
+//Daily-Create
+localhost:8090
+POST /api/v1/daily/create
+Host: localhost:8090
+
+{
+    "dailyHeader" : "daily1",
+    "dailyContent": "daily1",
+    "email" :"daily1@gmail.com",
+    "password": "daily123@"
+}
+
+//Daily-List
+GET /api/v1/daily/create
+Host: localhost:8090
+
+//Daily-Find
+GET /api/v1/daily/find/1
+Host: localhost:8090
+
+//Daily-Update
+PUT /api/v1/daily/update/1
+Host: localhost:8090
+
+{
+    "dailyHeader" : "daily2",
+    "dailyContent": "daily2",
+    "email" :"daily2gmail.com",
+    "password": "daily123@"
+}
+
+//Daily-Delete
+DELETE /api/v1/daily/delete/1
+Host: localhost:8090
