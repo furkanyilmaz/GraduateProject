@@ -1,0 +1,89 @@
+//REGISTER
+POST /api/authentication/register
+Host: localhost:5555
+
+{
+   "name":"root1",
+   "username":"root1",
+    "password":"root1"
+}
+
+//LOGIN
+POST /api/authentication/login
+Host: localhost:5555
+
+{
+   "username":"root1",
+   "password":"root1"
+}
+
+//DAILY
+//Daily-Create
+POST /gateway/daily
+Host: localhost:5555
+
+{
+    "dailyHeader" : "daily1",
+    "dailyContent": "daily1",
+    "email" :"daily1@gmail.com",
+    "password": "daily123@"
+}
+
+//Daily-List
+GET /gateway/daily
+Host: localhost:5555
+
+//Daily-Find
+GET /gateway/daily/1
+Host: localhost:5555
+
+//Daily-Update
+PUT /gateway/daily/1
+Host: localhost:5555
+
+{
+    "dailyHeader" : "daily2",
+    "dailyContent": "daily2",
+    "email" :"daily2gmail.com",
+    "password": "daily123@"
+}
+
+//Daily-Delete
+DELETE /gateway/daily/1
+Host: localhost:5555
+
+
+//BLOG
+//Blog-Create
+POST /gateway/daily
+Host: localhost:5555
+
+{
+    "blogHeader" : "blog1",
+    "blogContent": "blog1",
+    "email" :"blog1@gmail.com",
+    "password": "blog123@"
+}
+
+//Blog-List
+GET /gateway/blog
+Host: localhost:5555
+
+//Blog-Find
+GET /gateway/blog/1
+Host: localhost:5555
+
+//Blog-Update
+PUT /gateway/blog/1
+Host: localhost:5555
+
+{
+    "blogHeader" : "blog2",
+    "blogContent": "blog2",
+    "email" :"blog2@gmail.com",
+    "password": "blog123@"
+}
+
+//Blog-Delete
+DELETE /gateway/blog/1
+Host: localhost:5555
