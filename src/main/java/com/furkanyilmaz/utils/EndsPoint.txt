@@ -1,3 +1,7 @@
+Furkan Yilmaz
+Atm Project: https://github.com/furkanyilmaz/Atm_Project
+
+
 //REGISTER
 POST /api/authentication/register
 Host: localhost:5555
