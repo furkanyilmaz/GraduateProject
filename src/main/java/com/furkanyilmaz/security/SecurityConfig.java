@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //yetkilendirme yapılandırılması roller sadece ilgili kişiler erişsin
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Cross  Side Request Forgery (session kullanmayacaksak kapataabiliriz) ve JWT kullancağız.
+        // Cross Side Request Forgery (session kullanmayacaksak kapataabiliriz) ve JWT kullancağız.
         http.csrf().disable();
 
         // session kullanmayacaksak kapatabiliriz)

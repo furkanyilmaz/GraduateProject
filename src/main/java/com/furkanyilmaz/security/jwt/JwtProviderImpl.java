@@ -57,7 +57,7 @@ public class JwtProviderImpl implements IJwtProvider {
 
             //Spring security için anahtar kodlayıcı genel ve ozel anahtar için
             //private key kodlamak
-            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(decoder.decode(jwtPrivateKeyStr.getBytes()));
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(decoder.decode(jwtPrivateKeyStr.getBytes())); //string to byte
 
             //public key kodlamak
             X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(decoder.decode(jwtPublicKeyStr.getBytes()));
@@ -86,7 +86,7 @@ public class JwtProviderImpl implements IJwtProvider {
     // USerPrincipal: kullanıcı email,şifre,roller vardır.
     @Override
     public String generateToken(UserPrincipal authentication) {
-        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining());
+        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining());//listeyi string halinde birlestir.
         return Jwts.builder().setSubject(authentication.getUsername())
                 //kullanıcı ID almak
                 .claim("userId", authentication.getId())
@@ -114,7 +114,7 @@ public class JwtProviderImpl implements IJwtProvider {
 
     // 2.YÖNTEM  getAuthentication
     @Override
-    public Authentication getAuthentication(HttpServletRequest httpServletRequest) {
+    public Authentication getAuthentication(HttpServletRequest httpServletRequest) {//seperate
         String token = resolveToken(httpServletRequest);
         //eğer token null ise return null olsun
         if (token == null)
@@ -126,9 +126,9 @@ public class JwtProviderImpl implements IJwtProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        //Claims üzeridnen username erişmek
-        //Claims üzeridnen userId erişmek
-        //Claims üzeridnen roles erişmek
+        //Claims üzerinden username erişmek
+        //Claims üzerinden userId erişmek
+        //Claims üzerinden roles erişmek
         String username = claims.getSubject();
         Long userId = claims.get("userId", Long.class);
         //dikakt kimlik doğrulama roles ile başlamalıdır. eğer rolde yoksa başına roles eklemeliyiz
@@ -146,7 +146,7 @@ public class JwtProviderImpl implements IJwtProvider {
     //3.YÖNTEM
     // validate: token süresini kontrol etmek için
     @Override
-    public boolean isValidateToken(HttpServletRequest httpServletRequest) {
+    public boolean isValidateToken(HttpServletRequest httpServletRequest) {//get token and come here
         String token = resolveToken(httpServletRequest);
         if (token == null)
             return false;

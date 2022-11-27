@@ -21,7 +21,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     //requet ve responselara erişir bu filter
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //gelen istediği
+        //gelen istek
         Authentication authentication=iJwtProvider.getAuthentication(request);
 
         //kimlik doğrulama

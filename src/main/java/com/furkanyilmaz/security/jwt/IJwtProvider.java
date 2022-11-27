@@ -8,7 +8,7 @@ import java.security.KeyFactory;
 public interface IJwtProvider {
     //RSA kullanıdğımızı Spring Security'e bildirmek için
     //key factory method: Java security RSA kullanıdğımızı belirtmemiz için kullanıyoruz
-    KeyFactory getKeyFactory();
+    KeyFactory getKeyFactory(); //with RSA algorithm
 
     //1.YÖNTEM (Token create)
     // (JWT token oluşturmak) öncelikle sistemde kullanıcı kimliği doğrulanmışssa buradan devam edilir.
